@@ -1,6 +1,8 @@
 import $file.webpack
 import $file.reboot
 
+import $ivy.`com.lihaoyi::mill-contrib-bloop:0.8.0`
+
 import mill._
 import scalalib._
 import scalafmt._
@@ -47,9 +49,18 @@ object protocolJs extends ProtocolModule with ScalaJSModule {
   def scalaJSVersion = "0.6.32"
 }
 
-object protocolJvm extends ProtocolModule
+object protocolJvm extends ProtocolModule {
 
-object server extends ScalaModule with ScalafmtModule {
+  def repositories = super.repositories ++
+  Seq(coursier.Repositories.bintray("virtuslab", "graphbuddy"))
+
+  def scalacOptions = commonScalacOptions ++ Seq("-Yrangepos")
+
+  def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++
+  Agg(ivy"com.virtuslab.semanticgraphs:::scalac-plugin:0.2.8")
+}
+
+trait ServerModule extends ScalaModule with ScalafmtModule {
 
   def scalaVersion = "2.13.1"
   def moduleDeps = Seq(protocolJvm)
@@ -98,12 +109,25 @@ object server extends ScalaModule with ScalafmtModule {
   }
 }
 
+object server extends ServerModule
+
+object serverGraph extends ServerModule {
+  def repositories = super.repositories ++
+  Seq(coursier.Repositories.bintray("virtuslab", "graphbuddy"))
+
+  def scalacOptions = commonScalacOptions ++ Seq("-Yrangepos")
+
+  def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++
+  Agg(ivy"com.virtuslab.semanticgraphs:::scalac-plugin:0.2.8")
+
+  def millSourcePath = build.millSourcePath / "protocol"
+}
 object client extends ScalaJSModule {
   def scalaVersion = "2.13.1"
   def scalaJSVersion = "0.6.29"
   def scalacPluginIvyDeps =
     super.scalacPluginIvyDeps() ++ Agg(
-      ivy"com.olegpy:better-monadic-for_2.13:0.3.1"
+      ivy"com.olegpy:::better-monadic-for:0.3.1"
     )
   def scalacOptions = commonScalacOptions
   def moduleDeps = Seq(protocolJs)
