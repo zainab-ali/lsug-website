@@ -83,8 +83,8 @@
 ◊time{14:00-17:30}
 ◊setup{◊p{Please clone the ◊link{◊text{Probably repository}◊url{https://github.com/propensive/probably}} and see the ◊link{◊text{contributor’s guide}◊url{https://github.com/propensive/probably/blob/master/contributing.md}} to get set up.}}
 ◊description{
-◊p{Learn about ◊link{◊text{Probably}◊url{https://github.com/propensive/probably}}'s easy model for defining and running tests in no more than five minutes, and open your first pull request!}
-◊p{We will be looking at improving Probably's CLI support, and making it easier to run tests and customize the output.}
+◊p{Learn about ◊link{◊text{Probably}◊url{https://github.com/propensive/probably}}’s easy model for defining and running tests in no more than five minutes, and open your first pull request!}
+◊p{We will be looking at improving Probably’s CLI support, and making it easier to run tests and customize the output.}
 ◊p{Take a look at issues with the ◊link{◊text{LSUG}◊url{https://github.com/propensive/probably/labels/lsug}} and for inspiration.}
 }}
 ◊event{
