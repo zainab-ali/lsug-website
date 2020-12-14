@@ -43,7 +43,7 @@ You don’t have to contribute to the Scala community through code — we’re a
 
 This project requires quite a few tools to get up and running. Don’t worry if you aren’t familiar with them yet. If you have any trouble, head over to [Gitter](https://gitter.im/lsug/lsug-website) and let us know.
 
-By this point, you should have already used GitHub, git and a terminal. If not, get set up with the [first-contributions project](https://github.com/firstcontributions/first-contributions).`
+By this point, you should have already used GitHub, git and a terminal. If not, get set up with the [first-contributions project](https://github.com/firstcontributions/first-contributions).
 
 You’ll now need to install the following tools.
  - [Mill](http://www.lihaoyi.com/mill/)
