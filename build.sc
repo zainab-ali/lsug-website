@@ -1,11 +1,12 @@
 import $file.webpack
 import $file.reboot
-
+import ammonite.ops.mkdir
 import mill._
 import scalalib._
 import scalafmt._
 import mill.scalajslib._
-import webpack.{WebpackModule, NpmDependency}
+import webpack.{NpmDependency, WebpackModule}
+import $file.fonts
 
 val catsEffectDep = ivy"org.typelevel::cats-effect::2.3.1"
 
@@ -52,7 +53,7 @@ object protocolJs extends ProtocolModule with ScalaJSModule {
 
 object protocolJvm extends ProtocolModule
 
-object server extends ScalaModule {
+object server extends ScalaModule with fonts.FontDownloader {
 
   def scalaVersion = "2.13.1"
   def moduleDeps = Seq(protocolJvm)
@@ -96,6 +97,11 @@ object server extends ScalaModule {
     millSourcePath / "src" / "main" / "resources" / "localkey.pkcs12"
   }
 
+
+  override def compile = T {
+    getFonts()
+    super.compile()
+  }
   object test extends Tests {
 
     def ivyDeps =
@@ -107,6 +113,7 @@ object server extends ScalaModule {
       )
     def testFrameworks = Seq("munit.Framework")
   }
+
 }
 
 object client extends ScalaJSModule {
@@ -164,7 +171,6 @@ object web extends WebModule {
     val r0 = r(t0).map(_.asInstanceOf[PathRef])
     val r1 = r(t1).map(_.asInstanceOf[PathRef])
     val r2 = r(t2).map(_.asInstanceOf[PathRef])
-
     (r0, r1, r2) match {
       case (
             Result.Success(bundle),
@@ -191,7 +197,6 @@ object web extends WebModule {
     val r0 = r(t0).map(_.asInstanceOf[PathRef])
     val r1 = r(t1).map(_.asInstanceOf[PathRef])
     val r2 = r(t2).map(_.asInstanceOf[PathRef])
-
     (r0, r1, r2) match {
       case (
             Result.Success(bundle),
