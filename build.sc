@@ -6,7 +6,6 @@ import scalalib._
 import scalafmt._
 import mill.scalajslib._
 import webpack.{NpmDependency, WebpackModule}
-import $file.fonts
 
 val catsEffectDep = ivy"org.typelevel::cats-effect::2.3.1"
 
@@ -53,7 +52,7 @@ object protocolJs extends ProtocolModule with ScalaJSModule {
 
 object protocolJvm extends ProtocolModule
 
-object server extends ScalaModule with fonts.FontDownloader {
+object server extends ScalaModule {
 
   def scalaVersion = "2.13.1"
   def moduleDeps = Seq(protocolJvm)
@@ -99,7 +98,6 @@ object server extends ScalaModule with fonts.FontDownloader {
 
 
   override def compile = T {
-    getFonts()
     super.compile()
   }
   object test extends Tests {
