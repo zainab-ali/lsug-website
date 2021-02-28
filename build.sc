@@ -96,10 +96,6 @@ object server extends ScalaModule {
     millSourcePath / "src" / "main" / "resources" / "localkey.pkcs12"
   }
 
-
-  override def compile = T {
-    super.compile()
-  }
   object test extends Tests {
 
     def ivyDeps =
@@ -107,7 +103,7 @@ object server extends ScalaModule {
         ivy"org.scalameta::munit::0.7.22",
         ivy"org.typelevel::discipline-munit::1.0.6",
         ivy"org.typelevel::cats-laws::2.4.2",
-        ivy"org.scalacheck::scalacheck::1.14.3" 
+        ivy"org.scalacheck::scalacheck::1.14.3"
       )
     def testFrameworks = Seq("munit.Framework")
   }
